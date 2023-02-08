@@ -1,11 +1,9 @@
 {
 	"name": "@azerum/reload",
-	"version": "0.0.1",
-
+	"version": "0.0.2",
 	"files": [
 		"./out"
 	],
-
 	"devDependencies": {
 		"@types/node": "^18.13.0"
 	},
