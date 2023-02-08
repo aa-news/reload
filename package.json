@@ -1,9 +1,12 @@
 {
 	"name": "@azerum/reload",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"files": [
 		"./out"
 	],
+	"scripts": {
+		"publish": "pnpm publish --access=public"
+	},
 	"devDependencies": {
 		"@types/node": "^18.13.0"
 	},
