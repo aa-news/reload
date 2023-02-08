@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        
+        "target": "es2020",
+        "lib": ["es2020"],
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+
+        "rootDir": "src",
+        "outDir": "out"
+    }
+}
