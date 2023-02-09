@@ -1,15 +1,28 @@
 import { ChildProcess } from 'child_process'
 import chokidar from 'chokidar'
 import { Message, start, State } from './actor'
+import { isIn } from './isIn'
 
 const args = process.argv.slice(2)
 
-const path = args[0]
-const command = args[1]
-const commandArgs = args.slice(2)
+const modes = ['all', 'no-edits'] as const
+const mode = args[0]
 
-if (path === undefined || command === undefined) {
-    console.log('Usage: node ./reload.js path/to/watch command arg0 arg1')
+const path = args[1]
+
+const command = args[2]
+const commandArgs = args.slice(3)
+
+if (path === undefined || !isIn(modes, mode) || command === undefined) {
+    console.log('Usage: node ./reload.js [all|no-edits] path/to/watch command arg0 arg1')
+    console.log()
+    console.log('all')
+    console.log('  Track add, remove and edit events')
+    console.log()
+    console.log('no-edits')
+    console.log('  Track only add and remove events')
+    console.log()
+
     process.exit(-1)
 }
 
@@ -26,6 +39,10 @@ watcher.on('add', onWatchChange)
 watcher.on('addDir', onWatchChange)
 watcher.on('unlink', onWatchChange)
 watcher.on('unlinkDir', onWatchChange)
+
+if (mode === 'all') {
+    watcher.on('change', onWatchChange)
+}
 
 process.once('SIGINT', () => {
     console.log()

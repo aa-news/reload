@@ -1,6 +1,6 @@
 {
 	"name": "@azerum/reload",
-	"version": "0.0.3",
+	"version": "1.0.0",
 	"files": [
 		"./out"
 	],
