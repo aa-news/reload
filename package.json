@@ -1,5 +1,8 @@
 {
-	"name": "@azerum/reload",
+	"name": "@aa-news/reload",
+	"private": true,
+	"repository": "https://github.com/aa-news/reload.git",
+
 	"version": "1.0.1",
 	"files": [
 		"./out"
