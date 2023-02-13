@@ -1,12 +1,14 @@
 {
-	"name": "@azerum/reload",
-	"version": "1.0.1",
+	"name": "@aa-news/reload",
+	"private": true,
+	"repository": "https://github.com/aa-news/reload.git",
+
+	"version": "1.0.2",
+
 	"files": [
 		"./out"
 	],
-	"scripts": {
-		"publish": "pnpm publish --access=public"
-	},
+	
 	"devDependencies": {
 		"@types/node": "^18.13.0"
 	},
