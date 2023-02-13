@@ -3,11 +3,7 @@
 	"private": true,
 	"repository": "https://github.com/aa-news/reload.git",
 
-	"version": "1.0.2",
-
-	"files": [
-		"./out"
-	],
+	"version": "1.0.3",
 	
 	"devDependencies": {
 		"@types/node": "^18.13.0"
