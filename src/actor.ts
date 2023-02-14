@@ -19,6 +19,7 @@ export type Message = {
 export type FirstState = {
     type: 'starting'
     child: ChildProcess
+    afterRespawn: boolean
 };
 
 export type State = FirstState | {
@@ -44,7 +45,8 @@ export function start(command: string, args: string[]): [FirstState, Actor] {
     return [
         {
             type: 'starting',
-            child: runChild()
+            child: runChild(),
+            afterRespawn: false
         },
 
         (s, m): State => {
@@ -68,6 +70,11 @@ export function start(command: string, args: string[]): [FirstState, Actor] {
                         }
         
                         case 'spawn': {
+                            if (s.afterRespawn) {
+                                const timeNow = toTimeString(new Date())
+                                console.log(bold + `Restarted at ${timeNow}` + end)
+                            }
+
                             return {
                                 type: 'running',
                                 child: s.child
@@ -165,7 +172,8 @@ export function start(command: string, args: string[]): [FirstState, Actor] {
                         case 'exit': 
                             return {
                                 type: 'starting',
-                                child: runChild()
+                                child: runChild(),
+                                afterRespawn: true
                             }
         
                         case 'shutdown':
@@ -185,3 +193,15 @@ export function start(command: string, args: string[]): [FirstState, Actor] {
         }
     ]
 }
+
+function toTimeString(d: Date): string {
+    return d.toTimeString().split(' ')[0]!
+}
+
+//See https://stackoverflow.com/a/33206814/12983861
+
+//\033 is an octal escape sequence, not supported in strict mode
+//We must use hexademical instead. 33 in octal is 1b in hexadecimal
+
+const bold = '\x1b[1m'
+const end = '\x1b[22m'

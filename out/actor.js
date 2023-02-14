@@ -10,7 +10,8 @@ function start(command, args) {
     return [
         {
             type: 'starting',
-            child: runChild()
+            child: runChild(),
+            afterRespawn: false
         },
         (s, m) => {
             switch (s.type) {
@@ -29,6 +30,10 @@ function start(command, args) {
                             };
                         }
                         case 'spawn': {
+                            if (s.afterRespawn) {
+                                const timeNow = toTimeString(new Date());
+                                console.log(bold + `Restarted at ${timeNow}` + end);
+                            }
                             return {
                                 type: 'running',
                                 child: s.child
@@ -105,7 +110,8 @@ function start(command, args) {
                         case 'exit':
                             return {
                                 type: 'starting',
-                                child: runChild()
+                                child: runChild(),
+                                afterRespawn: true
                             };
                         case 'shutdown':
                             return {
@@ -123,3 +129,11 @@ function start(command, args) {
     ];
 }
 exports.start = start;
+function toTimeString(d) {
+    return d.toTimeString().split(' ')[0];
+}
+//See https://stackoverflow.com/a/33206814/12983861
+//\033 is an octal escape sequence, not supported in strict mode
+//We must use hexademical instead. 33 in octal is 1b in hexadecimal
+const bold = '\x1b[1m';
+const end = '\x1b[22m';
