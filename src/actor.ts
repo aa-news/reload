@@ -1,5 +1,5 @@
 import { ChildProcess, spawn } from 'child_process'
-import { assertNever } from 'assert-never';
+import { assertNever } from 'assert-never'
 
 export type Message = {
     type: 'spawn'
@@ -14,13 +14,13 @@ export type Message = {
     type: 'watchChange'
 } | {
     type: 'shutdown'
-};
+}
 
 export type FirstState = {
     type: 'starting'
     child: ChildProcess
     afterRespawn: boolean
-};
+}
 
 export type State = FirstState | {
     type: 'end'
