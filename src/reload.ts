@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { ChildProcess } from 'child_process'
 import chokidar from 'chokidar'
 import { Message, start, State } from './actor'
